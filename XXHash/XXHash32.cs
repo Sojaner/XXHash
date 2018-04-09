@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using System.Text;
-using System.Threading.Tasks;
+// ReSharper disable InconsistentNaming
 
 namespace XXHash
 {
@@ -15,7 +12,7 @@ namespace XXHash
         private const uint PRIME32_4 = 668265263U;
         private const uint PRIME32_5 = 374761393U;
 
-        public unsafe static ulong Hash(string input, Encoding encoder, uint seed = 0)
+        public static unsafe ulong Hash(string input, Encoding encoder, uint seed = 0)
         {
             var buf = encoder.GetBytes(input);
             fixed (byte* buffer = buf)
@@ -24,7 +21,7 @@ namespace XXHash
             }
         }
 
-        public unsafe static ulong Hash(string input, uint seed = 0)
+        public static unsafe ulong Hash(string input, uint seed = 0)
         {
             fixed (char* buffer = input)
             {
@@ -32,7 +29,7 @@ namespace XXHash
             }
         }
 
-        public unsafe static ulong Hash(string input, int offset, int count, uint seed = 0)
+        public static unsafe ulong Hash(string input, int offset, int count, uint seed = 0)
         {
             fixed (char* @in = input)
             {
@@ -42,23 +39,23 @@ namespace XXHash
             }
         }
 
-        public unsafe static ulong Hash(this Char[] input, int offset, int count, uint seed = 0)
+        public static unsafe ulong Hash(this char[] input, int offset, int count, uint seed = 0)
         {
             if (input == null || input.Length == 0 || count == 0)
                 return 0;
-            fixed (Char* @in = &input[offset])
+            fixed (char* @in = &input[offset])
             {
-                return Hash((byte*)@in, count * sizeof(Char), seed);
+                return Hash((byte*)@in, count * sizeof(char), seed);
             }
         }
 
-        public unsafe static ulong Hash(this Char[] input, uint seed = 0)
+        public static unsafe ulong Hash(this char[] input, uint seed = 0)
         {
             if (input == null || input.Length == 0)
                 return 0;
-            fixed (Char* @in = &input[0])
+            fixed (char* @in = &input[0])
             {
-                return Hash((byte*)@in, input.Length * sizeof(Char), seed);
+                return Hash((byte*)@in, input.Length * sizeof(char), seed);
             }
         }
 
@@ -122,7 +119,7 @@ namespace XXHash
 
                 while (buffer < bEnd)
                 {
-                    h32 += (uint)(*buffer) * PRIME32_5;
+                    h32 += *buffer * PRIME32_5;
                     h32 = rol11(h32) * PRIME32_1;
                     buffer++;
                 }

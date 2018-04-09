@@ -1,214 +1,209 @@
 ﻿// Create By Shibox 
 
 
-using System.Runtime.InteropServices;
-using System;
-
 namespace XXHash
 {
     public static partial class XXHash64
     {
+        public static unsafe ulong Hash(this byte[] input, int offset, int count, ulong seed = 0)
+        {
+            if (input == null || input.Length == 0 || count == 0)
+                return 0;
+            fixed (byte* @in = &input[offset])
+            {
+                return Hash(@in, count * sizeof(byte), seed);
+            }
+        }
 
-			
-			public unsafe static ulong Hash(this Byte[] input, int offset, int count, ulong seed = 0)
-			{
-				if(input == null || input.Length == 0 || count == 0)
-					return 0;
-				fixed (Byte* @in = &input[offset])
-				{
-					return Hash((byte*)@in, count * sizeof(Byte),seed);
-				}
-			}
+        public static unsafe ulong Hash(this byte[] input, ulong seed = 0)
+        {
+            if (input == null || input.Length == 0)
+                return 0;
+            fixed (byte* @in = &input[0])
+            {
+                return Hash(@in, input.Length * sizeof(byte), seed);
+            }
+        }
 
-			public unsafe static ulong Hash(this Byte[] input, ulong seed = 0)
-			{
-				if(input == null || input.Length == 0)
-					return 0;
-				fixed (Byte* @in = &input[0])
-				{
-					return Hash((byte*)@in, input.Length * sizeof(Byte),seed);
-				}
-			}
-				
-			public unsafe static ulong Hash(this SByte[] input, int offset, int count, ulong seed = 0)
-			{
-				if(input == null || input.Length == 0 || count == 0)
-					return 0;
-				fixed (SByte* @in = &input[offset])
-				{
-					return Hash((byte*)@in, count * sizeof(SByte),seed);
-				}
-			}
+        public static unsafe ulong Hash(this sbyte[] input, int offset, int count, ulong seed = 0)
+        {
+            if (input == null || input.Length == 0 || count == 0)
+                return 0;
+            fixed (sbyte* @in = &input[offset])
+            {
+                return Hash((byte*)@in, count * sizeof(sbyte), seed);
+            }
+        }
 
-			public unsafe static ulong Hash(this SByte[] input, ulong seed = 0)
-			{
-				if(input == null || input.Length == 0)
-					return 0;
-				fixed (SByte* @in = &input[0])
-				{
-					return Hash((byte*)@in, input.Length * sizeof(SByte),seed);
-				}
-			}
-				
-			public unsafe static ulong Hash(this UInt16[] input, int offset, int count, ulong seed = 0)
-			{
-				if(input == null || input.Length == 0 || count == 0)
-					return 0;
-				fixed (UInt16* @in = &input[offset])
-				{
-					return Hash((byte*)@in, count * sizeof(UInt16),seed);
-				}
-			}
+        public static unsafe ulong Hash(this sbyte[] input, ulong seed = 0)
+        {
+            if (input == null || input.Length == 0)
+                return 0;
+            fixed (sbyte* @in = &input[0])
+            {
+                return Hash((byte*)@in, input.Length * sizeof(sbyte), seed);
+            }
+        }
 
-			public unsafe static ulong Hash(this UInt16[] input, ulong seed = 0)
-			{
-				if(input == null || input.Length == 0)
-					return 0;
-				fixed (UInt16* @in = &input[0])
-				{
-					return Hash((byte*)@in, input.Length * sizeof(UInt16),seed);
-				}
-			}
-				
-			public unsafe static ulong Hash(this Int16[] input, int offset, int count, ulong seed = 0)
-			{
-				if(input == null || input.Length == 0 || count == 0)
-					return 0;
-				fixed (Int16* @in = &input[offset])
-				{
-					return Hash((byte*)@in, count * sizeof(Int16),seed);
-				}
-			}
+        public static unsafe ulong Hash(this ushort[] input, int offset, int count, ulong seed = 0)
+        {
+            if (input == null || input.Length == 0 || count == 0)
+                return 0;
+            fixed (ushort* @in = &input[offset])
+            {
+                return Hash((byte*)@in, count * sizeof(ushort), seed);
+            }
+        }
 
-			public unsafe static ulong Hash(this Int16[] input, ulong seed = 0)
-			{
-				if(input == null || input.Length == 0)
-					return 0;
-				fixed (Int16* @in = &input[0])
-				{
-					return Hash((byte*)@in, input.Length * sizeof(Int16),seed);
-				}
-			}
-				
-			public unsafe static ulong Hash(this UInt32[] input, int offset, int count, ulong seed = 0)
-			{
-				if(input == null || input.Length == 0 || count == 0)
-					return 0;
-				fixed (UInt32* @in = &input[offset])
-				{
-					return Hash((byte*)@in, count * sizeof(UInt32),seed);
-				}
-			}
+        public static unsafe ulong Hash(this ushort[] input, ulong seed = 0)
+        {
+            if (input == null || input.Length == 0)
+                return 0;
+            fixed (ushort* @in = &input[0])
+            {
+                return Hash((byte*)@in, input.Length * sizeof(ushort), seed);
+            }
+        }
 
-			public unsafe static ulong Hash(this UInt32[] input, ulong seed = 0)
-			{
-				if(input == null || input.Length == 0)
-					return 0;
-				fixed (UInt32* @in = &input[0])
-				{
-					return Hash((byte*)@in, input.Length * sizeof(UInt32),seed);
-				}
-			}
-				
-			public unsafe static ulong Hash(this Int32[] input, int offset, int count, ulong seed = 0)
-			{
-				if(input == null || input.Length == 0 || count == 0)
-					return 0;
-				fixed (Int32* @in = &input[offset])
-				{
-					return Hash((byte*)@in, count * sizeof(Int32),seed);
-				}
-			}
+        public static unsafe ulong Hash(this short[] input, int offset, int count, ulong seed = 0)
+        {
+            if (input == null || input.Length == 0 || count == 0)
+                return 0;
+            fixed (short* @in = &input[offset])
+            {
+                return Hash((byte*)@in, count * sizeof(short), seed);
+            }
+        }
 
-			public unsafe static ulong Hash(this Int32[] input, ulong seed = 0)
-			{
-				if(input == null || input.Length == 0)
-					return 0;
-				fixed (Int32* @in = &input[0])
-				{
-					return Hash((byte*)@in, input.Length * sizeof(Int32),seed);
-				}
-			}
-				
-			public unsafe static ulong Hash(this UInt64[] input, int offset, int count, ulong seed = 0)
-			{
-				if(input == null || input.Length == 0 || count == 0)
-					return 0;
-				fixed (UInt64* @in = &input[offset])
-				{
-					return Hash((byte*)@in, count * sizeof(UInt64),seed);
-				}
-			}
+        public static unsafe ulong Hash(this short[] input, ulong seed = 0)
+        {
+            if (input == null || input.Length == 0)
+                return 0;
+            fixed (short* @in = &input[0])
+            {
+                return Hash((byte*)@in, input.Length * sizeof(short), seed);
+            }
+        }
 
-			public unsafe static ulong Hash(this UInt64[] input, ulong seed = 0)
-			{
-				if(input == null || input.Length == 0)
-					return 0;
-				fixed (UInt64* @in = &input[0])
-				{
-					return Hash((byte*)@in, input.Length * sizeof(UInt64),seed);
-				}
-			}
-				
-			public unsafe static ulong Hash(this Int64[] input, int offset, int count, ulong seed = 0)
-			{
-				if(input == null || input.Length == 0 || count == 0)
-					return 0;
-				fixed (Int64* @in = &input[offset])
-				{
-					return Hash((byte*)@in, count * sizeof(Int64),seed);
-				}
-			}
+        public static unsafe ulong Hash(this uint[] input, int offset, int count, ulong seed = 0)
+        {
+            if (input == null || input.Length == 0 || count == 0)
+                return 0;
+            fixed (uint* @in = &input[offset])
+            {
+                return Hash((byte*)@in, count * sizeof(uint), seed);
+            }
+        }
 
-			public unsafe static ulong Hash(this Int64[] input, ulong seed = 0)
-			{
-				if(input == null || input.Length == 0)
-					return 0;
-				fixed (Int64* @in = &input[0])
-				{
-					return Hash((byte*)@in, input.Length * sizeof(Int64),seed);
-				}
-			}
-				
-			public unsafe static ulong Hash(this Single[] input, int offset, int count, ulong seed = 0)
-			{
-				if(input == null || input.Length == 0 || count == 0)
-					return 0;
-				fixed (Single* @in = &input[offset])
-				{
-					return Hash((byte*)@in, count * sizeof(Single),seed);
-				}
-			}
+        public static unsafe ulong Hash(this uint[] input, ulong seed = 0)
+        {
+            if (input == null || input.Length == 0)
+                return 0;
+            fixed (uint* @in = &input[0])
+            {
+                return Hash((byte*)@in, input.Length * sizeof(uint), seed);
+            }
+        }
 
-			public unsafe static ulong Hash(this Single[] input, ulong seed = 0)
-			{
-				if(input == null || input.Length == 0)
-					return 0;
-				fixed (Single* @in = &input[0])
-				{
-					return Hash((byte*)@in, input.Length * sizeof(Single),seed);
-				}
-			}
-				
-			public unsafe static ulong Hash(this Double[] input, int offset, int count, ulong seed = 0)
-			{
-				if(input == null || input.Length == 0 || count == 0)
-					return 0;
-				fixed (Double* @in = &input[offset])
-				{
-					return Hash((byte*)@in, count * sizeof(Double),seed);
-				}
-			}
+        public static unsafe ulong Hash(this int[] input, int offset, int count, ulong seed = 0)
+        {
+            if (input == null || input.Length == 0 || count == 0)
+                return 0;
+            fixed (int* @in = &input[offset])
+            {
+                return Hash((byte*)@in, count * sizeof(int), seed);
+            }
+        }
 
-			public unsafe static ulong Hash(this Double[] input, ulong seed = 0)
-			{
-				if(input == null || input.Length == 0)
-					return 0;
-				fixed (Double* @in = &input[0])
-				{
-					return Hash((byte*)@in, input.Length * sizeof(Double),seed);
-				}
-			}
-		
+        public static unsafe ulong Hash(this int[] input, ulong seed = 0)
+        {
+            if (input == null || input.Length == 0)
+                return 0;
+            fixed (int* @in = &input[0])
+            {
+                return Hash((byte*)@in, input.Length * sizeof(int), seed);
+            }
+        }
+
+        public static unsafe ulong Hash(this ulong[] input, int offset, int count, ulong seed = 0)
+        {
+            if (input == null || input.Length == 0 || count == 0)
+                return 0;
+            fixed (ulong* @in = &input[offset])
+            {
+                return Hash((byte*)@in, count * sizeof(ulong), seed);
+            }
+        }
+
+        public static unsafe ulong Hash(this ulong[] input, ulong seed = 0)
+        {
+            if (input == null || input.Length == 0)
+                return 0;
+            fixed (ulong* @in = &input[0])
+            {
+                return Hash((byte*)@in, input.Length * sizeof(ulong), seed);
+            }
+        }
+
+        public static unsafe ulong Hash(this long[] input, int offset, int count, ulong seed = 0)
+        {
+            if (input == null || input.Length == 0 || count == 0)
+                return 0;
+            fixed (long* @in = &input[offset])
+            {
+                return Hash((byte*)@in, count * sizeof(long), seed);
+            }
+        }
+
+        public static unsafe ulong Hash(this long[] input, ulong seed = 0)
+        {
+            if (input == null || input.Length == 0)
+                return 0;
+            fixed (long* @in = &input[0])
+            {
+                return Hash((byte*)@in, input.Length * sizeof(long), seed);
+            }
+        }
+
+        public static unsafe ulong Hash(this float[] input, int offset, int count, ulong seed = 0)
+        {
+            if (input == null || input.Length == 0 || count == 0)
+                return 0;
+            fixed (float* @in = &input[offset])
+            {
+                return Hash((byte*)@in, count * sizeof(float), seed);
+            }
+        }
+
+        public static unsafe ulong Hash(this float[] input, ulong seed = 0)
+        {
+            if (input == null || input.Length == 0)
+                return 0;
+            fixed (float* @in = &input[0])
+            {
+                return Hash((byte*)@in, input.Length * sizeof(float), seed);
+            }
+        }
+
+        public static unsafe ulong Hash(this double[] input, int offset, int count, ulong seed = 0)
+        {
+            if (input == null || input.Length == 0 || count == 0)
+                return 0;
+            fixed (double* @in = &input[offset])
+            {
+                return Hash((byte*)@in, count * sizeof(double), seed);
+            }
+        }
+
+        public static unsafe ulong Hash(this double[] input, ulong seed = 0)
+        {
+            if (input == null || input.Length == 0)
+                return 0;
+            fixed (double* @in = &input[0])
+            {
+                return Hash((byte*)@in, input.Length * sizeof(double), seed);
+            }
+        }
+
     }
 }

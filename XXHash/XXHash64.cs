@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using System.Text;
-using System.Threading.Tasks;
+// ReSharper disable InconsistentNaming
 
-namespace XXHash
+namespace Caterpillar
 {
-    public static partial class XXHash64
+    public static class XXHash64
     {
         private const ulong PRIME64_1 = 11400714785074694791UL;
         private const ulong PRIME64_2 = 14029467366897019727UL;
@@ -15,7 +12,7 @@ namespace XXHash
         private const ulong PRIME64_4 = 9650029242287828579UL;
         private const ulong PRIME64_5 = 2870177450012600261UL;
 
-        public unsafe static ulong Hash(string input, Encoding encoder, ulong seed = 0)
+        public static unsafe ulong Hash(string input, Encoding encoder, ulong seed = 0)
         {
             var buf = encoder.GetBytes(input);
             fixed (byte* buffer = buf)
@@ -24,7 +21,7 @@ namespace XXHash
             }
         }
 
-        public unsafe static ulong Hash(string input, ulong seed = 0)
+        public static unsafe ulong Hash(string input, ulong seed = 0)
         {
             fixed (char* buffer = input)
             {
@@ -32,7 +29,7 @@ namespace XXHash
             }
         }
 
-        public unsafe static ulong Hash(string input, int offset, int count, ulong seed = 0)
+        public static unsafe ulong Hash(string input, int offset, int count, ulong seed = 0)
         {
             fixed (char* @in = input)
             {
@@ -42,23 +39,23 @@ namespace XXHash
             }
         }
 
-        public unsafe static ulong Hash(this Char[] input, int offset, int count, ulong seed = 0)
+        public static unsafe ulong Hash(this char[] input, int offset, int count, ulong seed = 0)
         {
             if (input == null || input.Length == 0 || count == 0)
                 return 0;
-            fixed (Char* @in = &input[offset])
+            fixed (char* @in = &input[offset])
             {
-                return Hash((byte*)@in, count * sizeof(Char),seed);
+                return Hash((byte*)@in, count * sizeof(char), seed);
             }
         }
 
-        public unsafe static ulong Hash(this Char[] input, ulong seed = 0)
+        public static unsafe ulong Hash(this char[] input, ulong seed = 0)
         {
             if (input == null || input.Length == 0)
                 return 0;
-            fixed (Char* @in = &input[0])
+            fixed (char* @in = &input[0])
             {
-                return Hash((byte*)@in, input.Length * sizeof(Char),seed);
+                return Hash((byte*)@in, input.Length * sizeof(char), seed);
             }
         }
 
@@ -154,7 +151,7 @@ namespace XXHash
 
             while (input < bEnd)
             {
-                h64 ^= ((ulong)*input) * PRIME64_5;
+                h64 ^= *input * PRIME64_5;
                 h64 = rol11(h64) * PRIME64_1;
                 input++;
             }
@@ -168,7 +165,7 @@ namespace XXHash
             return h64;
         }
 
-        public static unsafe void Hash(byte* input, int count, ref ulong r1, ref ulong r2, ulong s1 = 0,ulong s2=1)
+        public static unsafe void Hash(byte* input, int count, out ulong r1, out ulong r2, ulong s1 = 0, ulong s2 = 1)
         {
             ulong h1_64;
             ulong h2_64;
@@ -334,8 +331,8 @@ namespace XXHash
 
             while (input < bEnd)
             {
-                h1_64 ^= ((ulong)*input) * PRIME64_5;
-                h2_64 ^= ((ulong)*input) * PRIME64_5;
+                h1_64 ^= *input * PRIME64_5;
+                h2_64 ^= *input * PRIME64_5;
 
                 h1_64 = rol11(h1_64) * PRIME64_1;
                 h2_64 = rol11(h2_64) * PRIME64_1;
@@ -362,7 +359,7 @@ namespace XXHash
             r2 = h2_64;
         }
 
-        public static unsafe void Hash(byte* input, int count, ref ulong r1, ref ulong r2,ref ulong r3, ulong s1 = 0, ulong s2 = 1,ulong s3=2)
+        public static unsafe void Hash(byte* input, int count, out ulong r1, out ulong r2, out ulong r3, ulong s1 = 0, ulong s2 = 1, ulong s3 = 2)
         {
             ulong h1_64;
             ulong h2_64;
@@ -579,9 +576,9 @@ namespace XXHash
 
             while (input < bEnd)
             {
-                h1_64 ^= ((ulong)*input) * PRIME64_5;
-                h2_64 ^= ((ulong)*input) * PRIME64_5;
-                h3_64 ^= ((ulong)*input) * PRIME64_5;
+                h1_64 ^= *input * PRIME64_5;
+                h2_64 ^= *input * PRIME64_5;
+                h3_64 ^= *input * PRIME64_5;
 
                 h1_64 = rol11(h1_64) * PRIME64_1;
                 h2_64 = rol11(h2_64) * PRIME64_1;
@@ -615,7 +612,7 @@ namespace XXHash
             r3 = h3_64;
         }
 
-        public static unsafe void Hash(byte* input, int count, ref ulong r1, ref ulong r2, ref ulong r3,ref ulong r4, ulong s1 = 0, ulong s2 = 1, ulong s3 = 2,ulong s4=3)
+        public static unsafe void Hash(byte* input, int count, out ulong r1, out ulong r2, out ulong r3, out ulong r4, ulong s1 = 0, ulong s2 = 1, ulong s3 = 2, ulong s4 = 3)
         {
             ulong h1_64;
             ulong h2_64;
@@ -881,10 +878,10 @@ namespace XXHash
 
             while (input < bEnd)
             {
-                h1_64 ^= ((ulong)*input) * PRIME64_5;
-                h2_64 ^= ((ulong)*input) * PRIME64_5;
-                h3_64 ^= ((ulong)*input) * PRIME64_5;
-                h4_64 ^= ((ulong)*input) * PRIME64_5;
+                h1_64 ^= *input * PRIME64_5;
+                h2_64 ^= *input * PRIME64_5;
+                h3_64 ^= *input * PRIME64_5;
+                h4_64 ^= *input * PRIME64_5;
 
                 h1_64 = rol11(h1_64) * PRIME64_1;
                 h2_64 = rol11(h2_64) * PRIME64_1;
